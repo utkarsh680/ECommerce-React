@@ -1,10 +1,8 @@
-import Product from "../../pages/Product";
 
 import { FETCH_PRODUCTS } from "../Actions/Action";
 
 const initialState = {
   loading: true,
-  allProducts: [],
   products: [],
 };
 

@@ -12,7 +12,6 @@ export default function Product() {
       const res = await fetch(`${url}/products`);
       const result = await res.json();
       dispatch(fetchProducts(result));
-
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -24,16 +23,9 @@ export default function Product() {
 
   return (
     <div>
-      <div>
-        {products.map((product) => {
-          return (
-            <>
-              {" "}
-              <ProductsCard product={product} key={product.id} />
-            </>
-          );
-        })}
-      </div>
+      {products.map((product) => {
+        return <ProductsCard product={product} key={product.id} />;
+      })}
     </div>
   );
 }
