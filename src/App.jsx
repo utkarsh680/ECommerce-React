@@ -6,6 +6,7 @@ import Navbar from "./component/Navbar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./component/Home";
 import Cart from "./pages/Cart";
+import ProductDetails from "./component/ProductDetails";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element ={<ProductDetails />} />
         </Routes>
       </Provider>
     </>
