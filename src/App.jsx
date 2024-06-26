@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import ProductDetails from "./component/ProductDetails";
 import { addToCart, addToWishlist } from "./Redux/Actions/Action";
 import Wishlist from "./pages/Wishlist";
+import { toast } from "react-toastify";
 
 function App() {
   // Add to cart
@@ -20,7 +21,11 @@ function App() {
         if (item.id === product.id) {
           flag = false;
 
-          console.log("already added");
+          toast.error("Already in Cart!", {
+            position: "top-right",
+            autoClose: 1000,
+            className: "toast-message",
+          });
           return;
         }
       });
@@ -29,7 +34,11 @@ function App() {
       return;
     }
     dispatch(addToCart(product, price));
-    console.log("added to cart", price);
+    toast.success("Added to Cart!", {
+      position: "top-right",
+      autoClose: 1000,
+      className: "toast-message",
+    });
   };
   const handleAddToWishlist = (product) => {
     let flag = true;
@@ -38,8 +47,11 @@ function App() {
       tempArray.map((item) => {
         if (item.id === product.id) {
           flag = false;
-
-          console.log("already added");
+          toast.error("Already in Wishlist!", {
+            position: "top-right",
+            autoClose: 1000,
+            className: "toast-message",
+          });
           return;
         }
       });
@@ -48,6 +60,11 @@ function App() {
       return;
     }
     dispatch(addToWishlist(product));
+    toast.success("Added to Wishlist!", {
+      position: "top-right",
+      autoClose: 1000,
+      className: "toast-message",
+    });
   };
   return (
     <>
@@ -64,11 +81,16 @@ function App() {
           }
         />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist  />} />
+        <Route path="/wishlist" element={<Wishlist />} />
 
         <Route
           path="/product/:id"
-          element={<ProductDetails handleAddToCart={handleAddToCart} />}
+          element={
+            <ProductDetails
+              handleAddToCart={handleAddToCart}
+              addToCartFromWishlist={handleAddToCart}
+            />
+          }
         />
       </Routes>
     </>

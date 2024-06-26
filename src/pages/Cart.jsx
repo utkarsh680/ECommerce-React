@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/cart.module.scss";
 import { decrementProduct, incrementProduct, removeFromCart } from "../Redux/Actions/Action";
 import CartCard from "../component/CartCard";
+import { toast } from "react-toastify";
 export default function Cart() {
   const product = useSelector((state) => state.cartReducer.cartList);
   const cartPrice = useSelector((state) => state.cartReducer.totalPrice);
@@ -23,6 +24,11 @@ export default function Cart() {
   const removeProductHandle = (id, price) => {
     console.log("remove from cart", id);
     dispatch(removeFromCart(id, price));
+    toast.success("Successfully Remove from cart", {
+      position: "top-right",
+      autoClose: 500,
+      className: "toast-message",
+    });
   };
 
   const incrementProductHandle = (id) => {

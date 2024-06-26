@@ -19,7 +19,6 @@ export default function Product(props) {
     }
   };
 
-
   useEffect(() => {
     getProducts();
   }, []);
@@ -27,14 +26,17 @@ export default function Product(props) {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardBox}>
+        
         {products.map((product) => {
           return (
-            <ProductsCard
-              product={product}
-              key={product.id}
-              handleAddToCart={handleAddToCart}
-              handleAddToWishlist={handleAddToWishlist}
-            />
+           
+              <ProductsCard
+                product={product}
+                key={product.id}
+                handleAddToCart={handleAddToCart}
+                handleAddToWishlist={handleAddToWishlist}
+              />
+            
           );
         })}
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function WishlistCard(props) {
-  const {product, removeProductFromWishlist} = props;
+  const {product, removeProductFromWishlist, addToCart} = props;
   return (
     <>
       <div id={product.id} key={product.id}>
@@ -10,6 +10,7 @@ export default function WishlistCard(props) {
       <button onClick={() => removeProductFromWishlist(product.id)}>
         Remove
       </button>
+      <button onClick={() => addToCart(product, product.price)}>add to cart</button>
     </>
   );
 }

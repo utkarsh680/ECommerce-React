@@ -1,13 +1,76 @@
 .container {
-  height: 500px;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #d7eaf1a2;
+  color: black;
+  width: 310px;
+  height: 450px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: sans-serif;
+  position: relative;
+  .imageOuterBox {
+    
+    .imageBox {
+      height: 310px;
+      width: 310px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 10px;
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid rgb(226, 224, 224);
 
-  img {
-    height: 300px;
-    width: 300px;
+      justify-content: center;
+      img {
+        height: 300px;
+        width: 300px;
+      }
+    }
+  }
+
+  .cardDetails {
+    margin-top: 10px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .title {
+      font-size: 1rem;
+      color: rgb(42, 42, 42);
+    }
+    .priceAndCart {
+      display: flex;
+      justify-content: baseline;
+      gap: 2rem;
+
+      .price {
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+      .cartButton {
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
+        color: black;
+        margin-top: 3px;
+        cursor: pointer;
+        img {
+          height: 20px;
+          width: 20px;
+        }
+      }
+      .wishListButton {
+        position: absolute;
+        right: 60px;
+        bottom: 10px;
+        color: black;
+        margin-top: 3px;
+        cursor: pointer;
+        img {
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
   }
 }
