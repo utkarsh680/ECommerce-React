@@ -3,13 +3,12 @@ import { useParams } from "react-router-dom";
 import styles from "../styles/productDetails.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../Redux/Actions/Action";
 
-const ProductDetails = () => {
+const ProductDetails = (props) => {
+  const {handleAddToCart} = props;
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
 
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -29,27 +28,6 @@ const ProductDetails = () => {
     return <div>Loading...</div>;
   }
 
-  // Add to cart
-  const handleAddToCart = (product) => {
-    let flag = true;
-    if (localStorage.getItem("cart")) {
-      const tempArray = [...JSON.parse(localStorage.getItem("cart"))];
-      console.log("te,", tempArray)
-      tempArray.map((item) => {
-        if (item.id === product.id) {
-          flag = false;
-
-          console.log("already added");
-          return;
-        }
-      });
-    }
-    if (!flag) {
-      return;
-    }
-    dispatch(addToCart(product));
-    console.log("added to cart");
-  };
 
   return (
     <div className={styles.container}>
@@ -60,7 +38,8 @@ const ProductDetails = () => {
       <Link to={`/product`}>
         <button>back</button>
       </Link>
-      <button onClick={() => handleAddToCart(product)}>add to cart</button>
+      <button onClick={() => handleAddToCart(product, product.price)}>add to cart</button>
+      
     </div>
   );
 };

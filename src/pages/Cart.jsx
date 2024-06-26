@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import styles from "../styles/cart.module.scss";
+import { decrementProduct, incrementProduct, removeFromCart } from "../Redux/Actions/Action";
+import CartCard from "../component/CartCard";
 export default function Cart() {
   const product = useSelector((state) => state.cartReducer.cartList);
+  const cartPrice = useSelector((state) => state.cartReducer.totalPrice);
 
   const [cartItems, setCartItems] = useState(product);
+
+  const dispatch = useDispatch();
 
   // Add item from localStorage
   useEffect(() => {
@@ -14,20 +19,45 @@ export default function Cart() {
       setCartItems([...items]);
     }
   }, [localStorage.getItem("cart")]);
-  if (!cartItems) {
-    // cartItems is undefined or null, handle accordingly
-    return <div>Loading...</div>;
-  }
 
-  if (cartItems.length === 0) {
-    // cartItems is an empty array, handle accordingly
-    return <div>Your cart is empty.</div>;
-  }
+  const removeProductHandle = (id, price) => {
+    console.log("remove from cart", id);
+    dispatch(removeFromCart(id, price));
+  };
+
+  const incrementProductHandle = (id) => {
+    console.log("increment product", id);
+    dispatch(incrementProduct(id));
+
+  };
+
+  const decrementProductHandle = (id) => {
+    console.log("decrement product", id);
+    dispatch(decrementProduct(id));
+  };
   return (
-    <div>
-      {cartItems.map((product) => {
-        return <div id={product.id} key={product.id}> {product.id} </div>;
-      })}
+    <div className={styles.container}>
+      {cartItems.length > 0 ? (
+        cartItems.map((product) => {
+          return (
+            <CartCard
+              product={product}
+              key = {product.id}
+              removeFromCart={removeProductHandle}
+              incrementProduct={incrementProductHandle}
+              decrementProduct={decrementProductHandle}
+            />
+          );
+        })
+      ) : (
+        <>no data</>
+      )}
+      <div className={styles.cardBox}>
+        {cartItems.map((product) => {
+          return <div style={{ display: "flex" }} key={product.id}>{`${product.price}  `}</div>;
+        })}
+        <div>total: {cartPrice}</div>
+      </div>
     </div>
   );
 }

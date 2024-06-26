@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../Redux/Actions/Action";
+import { fetchProducts, removeFromWishlist } from "../Redux/Actions/Action";
 import ProductsCard from "../component/ProductsCard";
 import styles from "../styles/product.module.scss";
-export default function Product() {
+export default function Product(props) {
+  const { handleAddToCart, handleAddToWishlist } = props;
   const products = useSelector((state) => state.showDataReducer.products);
   const loading = useSelector((state) => state.showDataReducer.loading);
   const url = "https://fakestoreapi.com";
@@ -18,10 +19,10 @@ export default function Product() {
     }
   };
 
+
   useEffect(() => {
     getProducts();
   }, []);
-
 
   return (
     <div className={styles.cardContainer}>
@@ -31,6 +32,8 @@ export default function Product() {
             <ProductsCard
               product={product}
               key={product.id}
+              handleAddToCart={handleAddToCart}
+              handleAddToWishlist={handleAddToWishlist}
             />
           );
         })}
